@@ -1,1 +1,1 @@
-# Practica 0 Hola Mundo y creacion de GitHub 
+# Nombre: Ortega González Tlalli    Grupo: 3   Estructura de Datos y Algoritmos I 
