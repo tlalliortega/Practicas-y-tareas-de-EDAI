@@ -1,72 +1,141 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main (){
-    int n, m, i;
-    int *arr, *arr2; 
+// Definición del nodo
+typedef struct Nodo {
+    int dato;
+    struct Nodo *siguiente;
+} Nodo;
 
-    // Reservar memoria con malloc
-    printf("¿Cuantos enteros deseas almacenar?");
-    scanf("%d", &n); 
-    arr = (int *)malloc(n * sizeof(int)); 
-    if (arr == NULL){
-        printf("error al reservar memoria con malloc.\n");
-        return 1;
-    }
-    printf("\nValores iniciales con malloc (basura):\n");
-    for (i = 0; i < n; i++){
-        printf("arr2[%d] = %d\n, i, arr[i]");
-    }
+int main() {
+    int n, m, i, valor;
+    Nodo *inicio = NULL, *actual = NULL, *temp = NULL;
 
-    //reservar memoria con calloc
-    arr2 = (int *)calloc(n, sizeof(int)); 
-    if (arr2 == NULL){
-        printf("error al reservar memoria con calloc.\n ");
-        free(arr);
-        return 1;
-    }
-    printf("\nValores iniciales con calloc (ceros):\n");
-    for (i = 0; i < n; i++){
-        printf("arr2[%d] = %d\n", i, arr2[i]);
-    }
+    // reservar memoria con malloc
+    printf("¿Cuántos enteros quieres almacenar en la lista circular? ");
+    scanf("%d", &n);
 
-    // llenado del arreglo arr2
-    printf("\nIngresa %d valores para arr2: \n", n);
-    for (i = 0; i < n; i++){
-        printf("arr2[%d] = ", i); 
-        scanf("%d", &arr2[i]); 
-    }
+    printf("\nCreando lista circular con malloc (valores basura):\n");
+    for (i = 0; i < n; i++) {
+        temp = (Nodo *)malloc(sizeof(Nodo));
+        if (temp == NULL) {
+            printf("Error al reservar memoria.\n");
+            return 1;
+        }
+        temp->dato = rand(); // basura simulada
+        temp->siguiente = NULL;
 
-    //redimensionar con realloc 
-    printf("\n¿Nuevo tamaño para el arreglo arr2?"); 
-    scanf ("%d", &m); 
-    int *temp = (int*)realloc(arr2, m * sizeof(int)); 
-    if (temp == NULL){
-        printf("error al redimencionar con realloc.\n");
-        free(arr); 
-        free(arr2);
-        return 1; 
-    }
-    arr2 = temp; 
-
-    // si el nuevo tamaño es mayor, añadir los valores restantes
-    if (m > n){
-        printf ("\nIngresa los %d valores adicionales: \n", m - n); 
-        for (i = n; i < m; i++){
-            printf("arr2[%d] = ", i);
-            scanf("%d", &arr2[i]); 
+        if (inicio == NULL) {
+            inicio = temp;
+            actual = temp;
+        } else {
+            actual->siguiente = temp;
+            actual = temp;
         }
     }
-    // imprimir los nuevos valores 
-    printf("\nValores finales en arr2:\n");
-    for (i = 0; i < m; i++){
-        printf ("arr2[%d] = %d\n", i, arr2[i]);
+    actual->siguiente = inicio; // cerrar el ciclo
+
+    // mostrar valores basura
+    temp = inicio;
+    for (i = 0; i < n; i++) {
+        printf("Nodo %d: %d\n", i, temp->dato);
+        temp = temp->siguiente;
     }
 
-    //liberacion de memoria
-    free (arr);
-    free(arr2);
-    printf("\nMemoria liberada exitosamente.\n");
+    // crear nueva lista con calloc
+    Nodo *inicio2 = NULL, *actual2 = NULL;
+    printf("\nCreando nueva lista circular con calloc (valores en 0):\n");
+    for (i = 0; i < n; i++) {
+        temp = (Nodo *)calloc(1, sizeof(Nodo));
+        if (temp == NULL) {
+            printf("Error al reservar memoria.\n");
+            return 1;
+        }
 
-    return 0; 
+        if (inicio2 == NULL) {
+            inicio2 = temp;
+            actual2 = temp;
+        } else {
+            actual2->siguiente = temp;
+            actual2 = temp;
+        }
+    }
+    actual2->siguiente = inicio2;
+
+    // mostrar valores iniciales
+    temp = inicio2;
+    for (i = 0; i < n; i++) {
+        printf("Nodo %d: %d\n", i, temp->dato);
+        temp = temp->siguiente;
+    }
+
+    // llenar la lista
+    printf("\nIngresa %d valores para la lista:\n", n);
+    temp = inicio2;
+    for (i = 0; i < n; i++) {
+        printf("Nodo %d: ", i);
+        scanf("%d", &temp->dato);
+        temp = temp->siguiente;
+    }
+
+    // redimensionar la lista
+    printf("\n¿Nuevo tamaño de la lista? ");
+    scanf("%d", &m);
+
+    if (m > n) {
+        for (i = n; i < m; i++) {
+            temp = (Nodo *)malloc(sizeof(Nodo));
+            if (temp == NULL) {
+                printf("Error al reservar memoria.\n");
+                return 1;
+            }
+            printf("Nodo %d: ", i);
+            scanf("%d", &temp->dato);
+            temp->siguiente = inicio2;
+            actual2->siguiente = temp;
+            actual2 = temp;
+        }
+    }
+
+    // mostrar todos los valores
+    printf("\nValores finales en la lista circular:\n");
+    temp = inicio2;
+    for (i = 0; i < m; i++) {
+        printf("Nodo %d: %d\n", i, temp->dato);
+        temp = temp->siguiente;
+    }
+
+    // liberar memoria
+    temp = inicio;
+    for (i = 0; i < n; i++) {
+        Nodo *sig = temp->siguiente;
+        free(temp);
+        temp = sig;
+    }
+
+    temp = inicio2;
+    for (i = 0; i < m; i++) {
+        Nodo *sig = temp->siguiente;
+        free(temp);
+        temp = sig;
+    }
+
+    printf("\nMemoria liberada correctamente.\n");
+    return 0;
 }
+
+
+
+// ACTIVIDAD
+
+// 1. ¿Qué diferencia observaron entre los valores iniciales con malloc y calloc?
+// Con malloc los valores iniciales eran basura, porque la memoria se reservo pero no se limpio. Con calloc los valores inciales fueron 0 porque calloc limpio la memoria.
+
+// 2. ¿Qué sucede si en realloc piden un tamaño más grande que el original? ¿y más
+//pequeño?
+//Si el tamaño es más grande el programa le solicitara al usuario añadir el valor restante.
+//En cambio, si es pequeño los valores se reducen y los elementos que exceden el nuevo tamaño se pierden y la memoria liberada se devuelve al sistema.  
+
+//3. ¿Qué pasa si olvidan llamar a free?
+// La memoria no se libera incluso si el programa termina, provocando una memory leak lo que provoca que el sistema tenga fallas. 
+
