@@ -79,5 +79,10 @@ int main(){
 
 //Preguntas (A)
 //1. ¿Por qué en la cola circular no se desperdician posiciones como en la cola lineal?
+// Porque los indices frente y final se van actualizando nuevo indice=(indice actual +1)%MAX permitiendo que el indice de la vuelta al llegar al final del arreglo, y reutiliza los espacios vacios al principio sin desperdiciar memoria.}
+
 //2. ¿Qué pasa cuando el índice final llega al final del arreglo?
+// Gracias a la formula circular, el indice final regresa al incio del arreglo.
+
 //3. ¿Qué sucede si intentas encolar cuando la cola está llena?
+//La condicion de la cola es size==MAX si realizamos un enqueue en ese estado el programa rechaza la operacion y muestra un mensaje de error.

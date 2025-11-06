@@ -123,3 +123,14 @@ int main() {
 
     return 0;
 }
+
+//Reflexión (B)
+//1. ¿Qué diferencia tiene el deque frente a la cola circular normal?
+//El deque es mas flexible que la cola circular, ya que no se limita a un solo extremo para operaciones de entrada y salida
+
+//2. ¿Qué operaciones permiten simular tanto FIFO como LIFO?
+//Fifo: insert_rear()+ delete_front() [Como una cola tradicional]
+//Lifo: insert_front() + delete_front() insert_rear()+ delete_rear() [como una pila]
+
+//3. Investiga que aplicaciones prácticas tiene deque.
+// 1.- Sistemas de memorias cache  2.- Procesamineto de datos en tiempo real 3.- Simulacion de juegos o eventos 4.- Control de tareas en sistemas operativos. 5.- Algoritmos de recorrido de grafos
