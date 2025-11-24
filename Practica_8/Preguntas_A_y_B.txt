@@ -1,0 +1,44 @@
+Nombre: Ortega González Tlalli   grupo: 03     Núm. de cuenta: 322111013
+
+Práctica 8
+
+Preguntas (A)
+1. ¿Por qué es más fácil eliminar un nodo intermedio en una lista doblemente
+ligada que en una lista simple?
+En una lista doblemente ligada, cada nodo conoce a su anterior como a su siguiente. Por lo tanto, al encontrar el nodo a eliminar podemos ajustar directamente a ambos punteros.
+
+2. ¿Qué sucede si se olvida actualizar alguno de los punteros anterior o
+siguiente?
+Si no actualizamos anterior el recorrido hacia atrás se rompe, y podríamos tener referencias invalidas que lleven a errores de acceso a memoria (segmentation fault).
+Si no actualizamos siguiente el recorrido hacia adelante se rompe. El nodo eliminado podría seguir colgando en la lista, causando fugas de memoria o comportamientos inesperados.
+
+3. ¿En qué escenarios prácticos se usa una lista doblemente ligada?
+Este tipo de listas se emplean para recorridos de ambos sentidos o inserciones/eliminaciones rápidas en cualquier parte de la lista.
+- Historial de navegación en un navegador web
+- Reproductores multimedia
+- Gestión de imágenes o diapositivas
+- Implementación de colas con prioridad o buffers
+
+Preguntas (B)
+
+1. ¿Qué diferencia hay entre una lista doblemente ligada y una circular
+doblemente ligada?
+Lista doblemente ligada (lineal):
+⦁	El primer nodo tiene su puntero anterior = NULL
+⦁	El ultimo nodo tiene su puntero siguiente = NULL
+⦁	Se puede recorrer hacia adelante o hacia atrás, pero el recorrido termina en los extremos.
+Lista doblemente ligada circular:
+⦁	No existen punteros NULL
+⦁	El ultimo nodo apunta al primero (siguiente)
+⦁	El primero apunta al ultimo (anterior)
+⦁	Si sigues avanzando vuelves al inicio es decir no termina por si solo.
+
+2. ¿Qué errores pueden causar ciclos infinitos al recorrer una lista circular?
+Si usamos un while(temp!=NULL) como si fuera una lista lineal, no se cumplirá porque no hay NULL, provocando un buble infinito.
+No verificar temp==inicio provocara que el programa gire sin fin.
+
+3. ¿Qué tipo de aplicaciones reales usan este tipo de listas (por ejemplo,
+reproductores multimedia, navegación en historial, juegos)?
+⦁	Reproductores de música: Avanzar y retroceder entre canciones o videos en bucle.
+⦁	Navegadores web: Moverse hacia adelante y hacia atrás en paginas.
+⦁	Juegos: Turnos que pasan circularmente entre jugadores.
