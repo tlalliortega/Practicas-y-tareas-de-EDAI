@@ -1,0 +1,42 @@
+Nombre: Ortega González Tlalli    Grupo: 03     Numero de cuenta: 322111013     
+
+PARTE 1 - DISEÑO DE ALGORITMOS 
+
+a) Explicación de cómo divides el problema (Divide & Conquer).
+
+Divide: separamos el arreglo en dos mitades (subproblemas) hasta llegar a casos triviales. Con esto podremos definir un punto medio (mid). 
+
+Conquer: aplicamos recursión para encontrar el máximo en cada mitad. 
+
+Combine: comparamos ambos máximos obtenidos de las dos mitades. El máximo del arreglo original será el mayor de esos dos valores. 
+
+b) Pseudocódigo recursivo. 
+
+
+FUNCION EncontrarMaximo(A, inicio, fin):
+
+SI inicio == fin ENTONCES:
+RETORNAR A[inicio]
+FIN SI
+
+mid = (inicio + fin)/2
+
+max_izquierdo = EncontrarMaximoDC(A, mid +1, fin)
+max_derecho = EncontrarMaximoDC(A, mid +1, fin)
+ SI max_izquierdo > max_derecho ENTONCES:
+RETORNAR max_izquierdo
+SINO: 
+RETORNAR max_derecho
+FIN SI 
+FIN FUNCION 
+
+c) Explicación del caso base. 
+
+Es fundamental para la recursión, ya que define la condición de parada para así evitar un bucle infinito. El caso base ocurre cuándo el sub arreglo tiene un solo elemento, es decir, el subproblema ya no se puede dividir más. Una vez llegando a ese punto, no hay nada a comparar, así que el elemento es el máximo de ese arreglo. 
+
+
+
+
+
+
+
